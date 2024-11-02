@@ -85,3 +85,7 @@ flask_profiler.sql
 .htaccess
 .user.ini
 docker-compose-used.yml
+CTFd/plugins/ctfd_owl/setup.py
+CTFd/plugins/ctfd_whale/utils/setup.py
+frpc/frpc.ini
+frps/frps.ini
