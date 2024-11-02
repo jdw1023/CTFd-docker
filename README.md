@@ -51,3 +51,5 @@ docker-compose -f CTFd/docker-compose.yml up -d
 >
 >core-beta主题暂不支持（等官方beta版搞完再做适配）
 
+2024.11.3
+> Merge CTFd/Master(3.7.4) to CTFd-docker/3.7.4
