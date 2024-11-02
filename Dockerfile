@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster as build
+FROM python:3.11-slim-bookworm AS build
 
 RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
 
@@ -40,8 +40,8 @@ WORKDIR /opt/CTFd
 # hadolint ignore=DL3008
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        libffi6 \
-        libssl1.1 \
+        libffi8 \
+        libssl3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
