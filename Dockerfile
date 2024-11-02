@@ -1,6 +1,6 @@
 FROM python:3.11-slim-bookworm AS build
 
-RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
+RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list.d/*
 
 WORKDIR /opt/CTFd
 
@@ -31,9 +31,9 @@ RUN pip install --upgrade pip -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/s
     done;
 
 
-FROM python:3.9-slim-buster as release
+FROM python:3.11-slim-bookworm as release
 
-RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
+RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list.d/*
 
 WORKDIR /opt/CTFd
 
