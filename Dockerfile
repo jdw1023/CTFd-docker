@@ -1,7 +1,5 @@
 FROM python:3.11-slim-bookworm AS build
 
-RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list.d/*
-
 WORKDIR /opt/CTFd
 
 RUN mkdir -p /opt/CTFd /var/log/CTFd /var/uploads
@@ -22,18 +20,16 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 COPY . /opt/CTFd
 
-RUN pip install --upgrade pip -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple --use-pep517 --no-cache-dir \
-    && pip install --no-cache-dir -r requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple --use-pep517 --no-cache-dir \
+RUN pip install --upgrade pip --use-pep517 --no-cache-dir \
+    && pip install --no-cache-dir -r requirements.txt --use-pep517 --no-cache-dir \
     && for d in CTFd/plugins/*; do \
         if [ -f "$d/requirements.txt" ]; then \
-            pip install --no-cache-dir -r "$d/requirements.txt" -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple --use-pep517 --no-cache-dir;\
+            pip install --no-cache-dir -r "$d/requirements.txt" --use-pep517 --no-cache-dir;\
         fi; \
     done;
 
 
 FROM python:3.11-slim-bookworm as release
-
-RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list.d/*
 
 WORKDIR /opt/CTFd
 
