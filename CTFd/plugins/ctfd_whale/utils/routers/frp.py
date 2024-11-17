@@ -45,6 +45,8 @@ class FrpRouter(BaseRouter):
     def get_rule(self):
         rules = []
         for container in DBContainer.get_all_alive_container():
+            if container.uuid == exclude:
+                continue
             name = f'{container.challenge.redirect_type}_{container.user_id}_{container.uuid}'
             config = {
                 'type': self.types[container.challenge.redirect_type],
@@ -92,7 +94,7 @@ class FrpRouter(BaseRouter):
             host = get_config("whale:frp_http_domain_suffix", "")
             port = get_config("whale:frp_http_port", "80")
             host += f':{port}' if port != 80 else ''
-            return f'<a target="_blank" href="http://{container.http_subdomain}.{host}/">题目链接</a>'
+            return f'<a target="_blank" href="http://{container.http_subdomain}.{host}/">Link to the Challenge</a>'
         return ''
 
     def register(self, container: WhaleContainer):
@@ -121,7 +123,7 @@ class FrpRouter(BaseRouter):
                     challenge_id=container.challenge_id,
                 )
                 return False, 'Error deleting port from cache'
-        self.reload()
+        self.reload(exclude=container.uuid)
         return True, 'success'
 
     def check_availability(self):
